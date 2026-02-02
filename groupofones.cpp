@@ -27,12 +27,15 @@ int main() {
         else if (v[meow]==0) {
             if (current > best) {
                 best = current;
-
+            }
             current = 0;
             }
+            }
 
-    
-        }}
-    cout << best;
-        
+    if (best == 0) {
+        cout << current;
+    }
+    else {
+        cout << best;
+    }
 }
