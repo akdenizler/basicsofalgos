@@ -16,7 +16,7 @@ int main() {
     vector<int> v;
     v.reserve(numEl);
 
-    // Phase 1: read elements into vector
+    //phase 1: read elements into vector
     while (i < numEl) {
         int arrEl;
         cin >> arrEl;
@@ -24,13 +24,13 @@ int main() {
         i++;
     }
 
-    // Phase 2: early exit check
+    //phase 2: early exit check
     if (v.size() <= 1) {
     	cout << -1; 
         return 0;
     }
 
-    // Phase 3: find biggest and second biggest
+    //phase 3: find biggest and second biggest
     else {
         i = 0;
         while (i < numEl) { 
