@@ -50,11 +50,7 @@ int main() {
                 foundSecond = true;
                 i++;
             }   
-            else if (v[i] == biggestNum){
-                i++;
-                continue;
-            }
-        	else if (v[i] == secondBiggest){
+            else if (v[i] == biggestNum or v[i]==secondBiggest){
                 i++;
                 continue;
             }

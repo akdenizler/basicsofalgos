@@ -22,7 +22,7 @@ int main() {
 
     for (int meow=0; meow<n; meow++) {
         if (v[meow] == 1) {
-            current = current + 1;
+            current++;
         }
         else if (v[meow]==0) {
             if (current > best) {
