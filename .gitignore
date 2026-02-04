@@ -1,0 +1,16 @@
+# executables
+alibaba2
+run
+a.out
+
+# environment files
+.env
+
+# VS Code settings
+.vscode/
+
+# macOS garbage
+.DS_Store
+
+# object files
+*.o

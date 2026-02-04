@@ -1,5 +1,3 @@
-// C++ Program to demonstrate how to implement the quick
-// sort algorithm
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -7,90 +5,79 @@ int carrCap;
 int numBags;
 
 struct sandBags {
-    int cost;
-    int weight;
+    long long cost;
+    long long weight;
     double r;
-}
+};
 
+void quickSort3(vector<sandBags> &vec, int low, int high) {
+    if (low >= high) return;
 
-int partition(vector<sandBags> &vec, int low, int high) {
+    int pivotIndex = low + rand() % (high - low + 1);
+    double pivot = vec[pivotIndex].r;
 
-    // Selecting last element as the pivot
-    sandBags pivot = vec[high];
+    int lt = low;   //< pivot
+    int i  = low;      //current
+    int gt = high;    //> pivot
 
-    // Index of elemment just before the last element
-    // It is used for swapping
-    int i = (low - 1);
-
-    for (int j = low; j <= high - 1; j++) {
-
-        // If current element's cw ratio is smaller than or
-        // equal to pivot
-        if (vec[j].r <= pivot.r) {
+    while (i <= gt) { //compare cost/weight ratios of sandbags
+        if (vec[i].r < pivot) {
+            swap(vec[lt++], vec[i++]);
+        } else if (vec[i].r > pivot) {
+            swap(vec[i], vec[gt--]);
+        } else {
             i++;
-            swap(vec[i], vec[j]);
         }
     }
 
-    // Put pivot to its position
-    swap(vec[i + 1], vec[high]);
-
-    // Return the point of partition
-    return (i + 1);
-}
-
-void quickSort(vector<int> &vec, int low, int high) {
-
-    // Base case: This part will be executed till the starting
-    // index low is lesser than the ending index high
-    if (low < high) {
-
-        // pi is Partitioning Index, arr[p] is now at
-        // right place
-        int pi = partition(vec, low, high);
-
-        // Separately sort elements before and after the
-        // Partition Index pi
-        quickSort(vec, low, pi - 1);
-        quickSort(vec, pi + 1, high);
-    }
+    quickSort3(vec, low, lt - 1);
+    quickSort3(vec, gt + 1, high);
 }
 
 int main() {
-    vector<SandBag> vec;
-    vec.reserve(nBun);  
 
-    for (int i = 0; i < nBun; i++) {
+	ios::sync_with_stdio(false); //optimisation stuff 
+    cin.tie(nullptr);
+
+    srand((unsigned)time(nullptr));
+
+    cin >> numBags >> carrCap;
+
+    vector<sandBags> vec;
+    vec.reserve(numBags);   
+
+    for (int i = 0; i < numBags; i++) {   //input loop
+        long long cost, weight;                
+        double r;                        
+
         cin >> cost >> weight;
         r = (double)cost / weight;
-        vec.push_back({cost, weight, r}); }
-	
-  	// Calling quicksort for the vector vec
-    quickSort(vec, 0, n - 1);
-    
-    int bagRN = 0; //where we keep track of whats in da bag (weightwise)
-    int capRem; //remaining bag capacity 
-    int totalCost = 0
-    int lastEl = numBags -1
-    int i=0;
 
-    while (bagRN < carrCap) {
-        if (vec[lastEl+i].weight > capRem) {
-             c = c_i * w / w_i;
-             c += totalCost;
-             capRem = carrCap - bagRN;
-        }
-        else {
-            bagRN += vec[lastEl].weight;
-            totalCost += vec[lastEl].cost;
-            capRem = carrCap - bagRN;
-            i++;
-        }
-      
+        vec.push_back(sandBags{cost, weight, r}); 
     }
 
-    
-    for (auto i : vec) {
-        cout << i << " ";
+    quickSort3(vec, 0, numBags - 1);
+
+    long long bagRN = 0; //bag right now
+    long long capRem; //capacity remaining
+    long long totalCost = 0;       
+    long long lastEl = numBags - 1;    
+    int i = 0;
+
+    while (bagRN < carrCap && i < numBags) {
+        capRem = carrCap - bagRN; 
+
+        if (vec[lastEl - i].weight > capRem) {
+            long long c = vec[lastEl - i].cost * capRem / vec[lastEl - i].weight;
+            totalCost += c;
+            break;
+        } else {
+            bagRN += vec[lastEl-i].weight;
+            totalCost += vec[lastEl-i].cost;
+            i++; 
+        }
     }
+
+    cout << totalCost; //output :)
     return 0;
+}
