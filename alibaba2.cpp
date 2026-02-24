@@ -16,9 +16,9 @@ void quickSort3(vector<sandBags> &vec, int low, int high) {
     int pivotIndex = low + rand() % (high - low + 1);
     double pivot = vec[pivotIndex].r;
 
-    int lt = low;   //< pivot
-    int i  = low;      //current
-    int gt = high;    //> pivot
+    int lt = low; //< pivot
+    int i  = low; //current
+    int gt = high; //> pivot
 
     while (i <= gt) { //compare cost/weight ratios of sandbags
         if (vec[i].r < pivot) {
